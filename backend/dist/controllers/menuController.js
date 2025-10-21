@@ -4,11 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.addMenuItem = exports.getMenu = void 0;
-const prisma_1 = __importDefault(require("../config/prisma"));
+const prisma_js_1 = __importDefault(require("../config/prisma.js"));
 // Get all menu items
 const getMenu = async (req, res) => {
     try {
-        const menu = await prisma_1.default.menu.findMany();
+        const menu = await prisma_js_1.default.menu.findMany();
         res.status(200).json(menu);
     }
     catch (error) {
@@ -20,7 +20,7 @@ exports.getMenu = getMenu;
 const addMenuItem = async (req, res) => {
     try {
         const { name, description, price } = req.body;
-        const item = await prisma_1.default.menu.create({
+        const item = await prisma_js_1.default.menu.create({
             data: { name, description, price },
         });
         res.status(201).json(item);

@@ -22,5 +22,6 @@ model Menu {
   name        String
   description String
   price       Float
+  image       String?   // ✅ optional image field
   createdAt   DateTime @default(now())
 }

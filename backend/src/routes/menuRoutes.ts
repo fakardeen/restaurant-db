@@ -16,16 +16,16 @@ router.get("/", async (_req: Request, res: Response) => {
   }
 });
 
-// ✅ Get single menu item by ID
 router.get("/:id", async (req: Request, res: Response) => {
   try {
-    const id = parseInt(req.params.id, 10); // ✅ convert string to number
+    const id = parseInt(req.params.id, 10);
+
     if (isNaN(id)) {
       return res.status(400).json({ error: "Invalid menu ID" });
     }
 
     const menu = await prisma.menu.findUnique({
-      where: { id }, // ✅ now a number, not undefined
+      where: { id },
     });
 
     if (!menu) {
@@ -36,21 +36,6 @@ router.get("/:id", async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to fetch menu item" });
-  }
-});
-
-// ✅ Create a new menu item
-router.post("/", async (req: Request, res: Response) => {
-  try {
-    const { name, description, price } = req.body;
-    const newMenu = await prisma.menu.create({
-      data: { name, description, price },
-    });
-    res.status(201).json(newMenu);
-  } catch (error: unknown) {
-    console.error(error);
-    const message = error instanceof Error ? error.message : "Unknown error";
-    res.status(500).json({ error: message });
   }
 });
 
